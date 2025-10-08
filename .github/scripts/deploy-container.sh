@@ -103,7 +103,7 @@ case "$MICROSERVICE_NAME" in
     exit 1
   fi
 
-  EXTRA_ENV="-e PROMETHEUS_URL=http://$PROMETHEUS_IP:9090/prometheus"
+  EXTRA_ENV="-e PROMETHEUS_URL=http://$PROMETHEUS_IP:9090/"
   ;;
 
   *)
