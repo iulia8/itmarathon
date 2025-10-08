@@ -56,7 +56,7 @@ module "ec2" {
   grafana_port                = var.grafana_port
   node_exporter_port          = var.node_exporter_port
   ports                       = local.ec2_ports_map[each.key]
-  target_group_arn = each.key == "angular" ? module.alb.web_ui_angular_target_group_arn : each.key == "react" ? module.alb.web_ui_react_target_group_arn : each.key == "grafana" ? module.alb.grafana_target_group_arn : each.key == "prometheus" ? module.alb.prometheus_target_group_arn : null
+  target_group_arn = each.key == "angular" ? module.alb.web_ui_angular_target_group_arn : each.key == "react" ? module.alb.web_ui_react_target_group_arn : each.key == "grafana" ? module.alb.grafana_target_group_arn : each.key == "prometheus" ? module.alb.prometheus_target_group_arn : each.key == "dotnet" ? module.alb.backend_target_group_arn : null
   associate_public_ip_address = true
 
 }

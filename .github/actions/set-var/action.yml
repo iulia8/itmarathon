@@ -83,10 +83,6 @@ runs:
         jq --arg url "$BASE_API_URL" '.environment.backendApiUrl = $url' frontend/react/config.json > tmp.config.json && mv tmp.config.json frontend/react/config.json
         cat frontend/react/config.json
 
-        echo "Updating BASE_API_URL in React project"
-        jq --arg url "$BASE_API_URL" '.environment.backendApiUrl = $url' frontend/react/config.json > tmp.config.json && mv tmp.config.json frontend/react/config.json
-        cat frontend/react/config.json
-
     - name: Set Angular Environment
       if: ${{ inputs.microservice == 'angular' }}
       shell: bash
@@ -97,10 +93,6 @@ runs:
         echo "CONTEXT=frontend/angular" >> $GITHUB_ENV
         echo "DOCKERFILE=frontend/angular/Dockerfile" >> $GITHUB_ENV
         echo "REPO=${{ inputs.docker_hub_username }}/angular" >> $GITHUB_ENV
-
-        echo "Updating BASE_API_URL in Angular project"
-        jq --arg url "$BASE_API_URL" '.environment.apiBackendUrl = $url' frontend/angular/config.json > tmp.config.json && mv tmp.config.json frontend/angular/config.json
-        cat frontend/angular/config.json
 
         echo "Updating BASE_API_URL in Angular project"
         jq --arg url "$BASE_API_URL" '.environment.backendApiUrl = $url' frontend/angular/config.json > tmp.config.json && mv tmp.config.json frontend/angular/config.json
