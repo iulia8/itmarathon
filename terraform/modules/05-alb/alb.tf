@@ -268,21 +268,7 @@ resource "aws_lb_listener_rule" "https_anniversary_path" {
     type = "fixed-response"
     fixed_response {
       content_type = "text/html"
-      message_body = <<HTML
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Happy Anniversary!</title>
-</head>
-<body style="background-color: #f2f4f7; text-align: center; font-family: Arial, sans-serif; padding: 50px;">
-    <div style="border: 3px solid #2368a0; border-radius: 15px; padding: 20px; display: inline-block; background-color: #ffffff;">
-        <h1 style="color: #2368a0;">🎉 Happy EPAM Ukraine 20 Anniversary! 🎉</h1>
-        <p style="font-size: 18px; color: #555;">Celebrating 20 incredible years of<br>innovation, excellence, and teamwork!</p>
-        <footer style="margin-top: 20px; font-size: 12px; color: #2368a0;">#WeAreEPAM | #20YearsTogether</footer>
-    </div>
-</body>
-</html>
-HTML
+      message_body = "<!DOCTYPE html><html><head><title>Happy Anniversary!</title></head><body style=\"background-color: #f2f4f7; text-align: center; font-family: Arial, sans-serif; padding: 50px;\"><div style=\"border: 3px solid #2368a0; border-radius: 15px; padding: 20px; display: inline-block; background-color: #ffffff;\"><h1 style=\"color: #2368a0;\">🎉 Happy EPAM Ukraine 20 Anniversary! 🎉</h1><p style=\"font-size: 18px; color: #555;\">Celebrating 20 incredible years of<br>innovation, excellence, and teamwork!</p><footer style=\"margin-top: 20px; font-size: 12px; color: #2368a0;\">#WeAreEPAM | #20YearsTogether</footer></div></body></html>"
       status_code = "200"
     }
   }
