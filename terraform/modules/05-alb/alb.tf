@@ -254,7 +254,8 @@ resource "aws_lb_listener_rule" "https_backend_host" {
   }
 }
 
-resource "aws_lb_listener_rule" "https_anniversary_path" {  listener_arn = aws_lb_listener.https.arn
+resource "aws_lb_listener_rule" "https_anniversary_path" {  
+  listener_arn = aws_lb_listener.https.arn
   priority     = 600
 
   condition {
