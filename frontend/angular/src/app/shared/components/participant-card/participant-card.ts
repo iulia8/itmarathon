@@ -5,12 +5,14 @@ import {
   HostBinding,
   inject,
   input,
+  output,
 } from '@angular/core';
 import { tap } from 'rxjs';
 
 import { IconButton } from '../icon-button/icon-button';
 import {
   AriaLabel,
+  IconColor,
   IconName,
   MessageType,
   NavigationLinkSegment,
@@ -25,6 +27,8 @@ import { ModalService } from '../../../core/services/modal';
 import { getPersonalInfo } from '../../../utils/get-personal-info';
 import { UserService } from '../../../room/services/user';
 import type { User } from '../../../app.models';
+import { ParticipantDeleteModal } from '../../../room/components/participant-delete-modal/participant-delete-modal';
+import { ApiService } from '../../../core/services/api';
 
 @Component({
   selector: 'li[app-participant-card]',
@@ -35,16 +39,19 @@ import type { User } from '../../../app.models';
 export class ParticipantCard {
   readonly participant = input.required<User>();
   readonly isCurrentUserAdmin = input.required<boolean>();
+  readonly deletedParticipant = output<void>();
 
   readonly showCopyIcon = input<boolean>(false);
   readonly userCode = input<string>('');
   readonly showInfoIcon = input<boolean>(false);
+  readonly showDeleteIcon = input<boolean>(false);
 
   readonly #popup = inject(PopupService);
   readonly #urlService = inject(UrlService);
   readonly #host = inject(ElementRef<HTMLElement>);
   readonly #modalService = inject(ModalService);
   readonly #userService = inject(UserService);
+  readonly #apiService = inject(ApiService);
 
   public readonly isCurrentUser = computed(() => {
     const code = this.userCode();
@@ -58,6 +65,10 @@ export class ParticipantCard {
   public readonly ariaLabelCopy = AriaLabel.ParticipantLink;
   public readonly iconInfo = IconName.Info;
   public readonly ariaLabelInfo = AriaLabel.Info;
+
+  public readonly iconDelete = IconName.Delete;
+  public readonly ariaLabelDelete = AriaLabel.Delete;
+  public readonly iconColor = IconColor.DeleteIcon;
 
   @HostBinding('tabindex') tab = 0;
   @HostBinding('class.list-row') rowClass = true;
@@ -138,6 +149,54 @@ export class ParticipantCard {
               { personalInfo, roomLink },
               {
                 buttonAction: () => this.#modalService.close(),
+                closeModal: () => this.#modalService.close(),
+              }
+            );
+          }
+        })
+      )
+      .subscribe();
+  }
+
+  public сurrentAdminCode = computed(() => {
+    const code = this.userCode();
+    return code!;
+  });
+
+  public onDeleteClick(): void {
+    if (!this.participant().isAdmin) {
+      this.#openDeleteModal();
+
+      return;
+    }
+  }
+
+  #openDeleteModal(): void {
+    this.#userService
+      .getUsers()
+      .pipe(
+        tap(({ status }) => {
+          if (status === 200) {
+            this.#modalService.openWithResult(
+              ParticipantDeleteModal,
+              undefined,
+              {
+                buttonAction: () => {
+                  this.#apiService
+                    .deleteUserById(
+                      this.participant().id.toString(),
+                      this.сurrentAdminCode()
+                    )
+                    .subscribe({
+                      next: () => {
+                        this.#modalService.close();
+                        this.deletedParticipant.emit();
+                      },
+                      error: (err) => {
+                        console.error(err);
+                      },
+                    });
+                },
                 closeModal: () => this.#modalService.close(),
               }
             );

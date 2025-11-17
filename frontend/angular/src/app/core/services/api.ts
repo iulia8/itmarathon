@@ -75,6 +75,30 @@ export class ApiService {
     });
   }
 
+  public getUserById(
+    id: string,
+    userCode: string
+  ): Observable<HttpResponse<User>> {
+    const params = new HttpParams().set('userCode', userCode);
+
+    return this.#http.get<User>(`${this.#baseUrl}${Endpoint.users}/${id}`, {
+      params,
+      observe: 'response',
+    });
+  }
+
+  public deleteUserById(
+    id: string,
+    userCode: string
+  ): Observable<HttpResponse<void>> {
+    const params = new HttpParams().set('userCode', userCode);
+
+    return this.#http.delete<void>(`${this.#baseUrl}${Endpoint.users}/${id}`, {
+      params,
+      observe: 'response',
+    });
+  }
+
   public drawNames(userCode: string): Observable<HttpResponse<string>> {
     const params = new HttpParams().set('userCode', userCode);
 

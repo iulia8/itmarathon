@@ -1,0 +1,18 @@
+@use 'colors/color-matrix' as *;
+@use 'abstracts/mixins' as *;
+
+.modal {
+  &__title {
+    margin-bottom: 16px;
+  }
+}
+.personal-info {
+  &__item {
+    flex: 0 1 100%;
+  }
+
+  &__term {
+    margin-bottom: 8px;
+    font-size: 14px;
+  }
+}

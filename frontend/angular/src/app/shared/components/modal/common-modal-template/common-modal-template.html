@@ -48,7 +48,7 @@
           }
 
           <app-button
-            class="primary medium"
+            [ngClass]="['medium', buttonColor()]"
             [text]="buttonText()"
             (click)="onActionButtonClick()"
           />

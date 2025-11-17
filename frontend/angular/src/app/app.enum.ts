@@ -19,6 +19,7 @@ export const enum IconName {
   Close = 'close',
   Link = 'link',
   Info = 'info',
+  Delete = 'delete',
 }
 
 export const enum AriaLabel {
@@ -31,6 +32,7 @@ export const enum AriaLabel {
   Close = 'Close',
   ParticipantLink = 'Copy personal link',
   Info = 'Info',
+  Delete = 'Delete',
 }
 
 export const enum InputSidebarText {
@@ -164,6 +166,7 @@ export const enum ButtonText {
   ViewWishlist = 'View Wishlist',
   Cancel = 'Cancel',
   ViewInformation = 'View Information',
+  DeleteParticipant = 'Delete',
 }
 
 export const enum ButtonType {
@@ -292,12 +295,14 @@ export const enum ModalTitle {
   ParticipantDetails = 'Participant Details',
   PersonalInformation = 'Personal Information',
   Invitation = 'Invite New Members',
+  DeletingParticipant = 'Delete Participant',
 }
 
 export const enum ModalSubtitle {
   ParticipantInfo = 'Everything about your Secret Nick player!',
   PersonalInfo = 'Secret Nick needs to know where to send your present!',
   Invitation = 'Share the link below with 20 friends to invite them',
+  DeleteInfo = 'The participant can no longer access the room.',
 }
 
 export const enum PersonalInfoTerm {
@@ -307,4 +312,12 @@ export const enum PersonalInfoTerm {
   Email = 'Email',
   DeliveryInfo = 'Delivery address',
   RoomLink = 'Participant`s Personal Room Link',
+}
+
+export const enum ButtonColor {
+  DeleteButton = 'warning',
+}
+
+export const enum IconColor {
+  DeleteIcon = 'icon-button-bg--warning',
 }
