@@ -56,3 +56,21 @@
     cursor: not-allowed;
   }
 }
+
+.button.icon-button-bg--warning {
+  fill: color.$icon-button-bg--warning;
+
+  &:hover,
+  &:focus-visible {
+    fill: color.$icon-button-bg--warning-hover;
+  }
+
+  &:active {
+    fill: color.$icon-button-bg--warning-active;
+  }
+
+  &:disabled {
+    fill: color.$icon-button-bg--disabled;
+    cursor: not-allowed;
+  }
+}

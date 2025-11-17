@@ -1,0 +1,17 @@
+<app-common-modal-template
+  [headerPictureName]="pictureName"
+  [headerTitle]="title"
+  [buttonText]="buttonText"
+  [subtitle]="subtitle"
+  (buttonAction)="onActionButtonClick()"
+  (closeModal)="onCloseModal()"
+  [buttonColor]="buttonColor"
+>
+  <div class="modal__content">
+    <section class="modal__content-item">
+      <h4 class="modal__title">
+        Do You really want to delete this participant?
+      </h4>
+    </section>
+  </div>
+</app-common-modal-template>

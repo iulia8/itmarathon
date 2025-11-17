@@ -1,8 +1,9 @@
 <button
-  class="button"
+  [ngClass]="['button', iconColor()]"
   type="button"
   [attr.aria-label]="ariaLabel()"
-  [disabled]="isButtonDisabled()">
+  [disabled]="isButtonDisabled()"
+>
   <svg class="button__icon">
     <use [attr.xlink:href]="iconHref()" />
   </svg>

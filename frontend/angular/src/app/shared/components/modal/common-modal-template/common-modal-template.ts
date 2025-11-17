@@ -7,10 +7,11 @@ import { fadeIn } from '../../../../utils/animations';
 import { FADE_IN_ANIMATION_DURATION_MS } from '../../../../app.constants';
 import { ButtonText } from '../../../../app.enum';
 import { BudgetPipe } from '../../../pipes/budget.pipe';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-common-modal-template',
-  imports: [Button, IconButton, FocusTrap, BudgetPipe],
+  imports: [Button, IconButton, FocusTrap, BudgetPipe, NgClass],
   templateUrl: './common-modal-template.html',
   styleUrl: './common-modal-template.scss',
   animations: [fadeIn(FADE_IN_ANIMATION_DURATION_MS)],
@@ -27,4 +28,6 @@ export class CommonModalTemplate extends ParentModalLayout {
   public onCancelButtonClick(): void {
     this.cancelButtonAction.emit();
   }
+
+  readonly buttonColor = input<string>('primary');
 }

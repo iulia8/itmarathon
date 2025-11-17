@@ -1,7 +1,15 @@
-import { Component, computed, HostBinding, input } from '@angular/core';
+import {
+  Component,
+  computed,
+  HostBinding,
+  inject,
+  input,
+  signal, OnInit,
+} from '@angular/core';
 import { User } from '../../../app.models';
 import { ParticipantCard } from '../participant-card/participant-card';
 import { toTimestamp } from '../../../utils/times';
+import { UserService } from '../../../room/services/user';
 
 @Component({
   selector: 'app-participant-list',
@@ -9,11 +17,14 @@ import { toTimestamp } from '../../../utils/times';
   templateUrl: './participant-list.html',
   styleUrl: './participant-list.scss',
 })
-export class ParticipantList {
+export class ParticipantList implements OnInit {
   public readonly participants = input<User[]>([]);
   public readonly maxParticipants = input<number>(20);
   public readonly isAdmin = input<boolean>(false);
   public readonly userCode = input<string>('');
+  public readonly allParticipants = signal<User[]>([]);
+
+  readonly #userService = inject(UserService);
 
   @HostBinding('class.non-admin-list')
   get adminClass(): boolean {
@@ -39,4 +50,14 @@ export class ParticipantList {
       }
     );
   });
+
+  ngOnInit() {
+    this.updateParticipantsList();
+  }
+
+  updateParticipantsList() {
+    this.#userService.getUsers().subscribe((res) => {
+      this.allParticipants.set(res.body ?? []);
+    });
+  }
 }
